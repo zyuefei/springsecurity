@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portjs.base.dao.TTraceLogMapper">
+  <resultMap id="BaseResultMap" type="com.portjs.base.model.TTraceLog">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="consume_time" jdbcType="INTEGER" property="consumeTime" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="class_method" jdbcType="LONGVARCHAR" property="classMethod" />
+    <result column="request_content" jdbcType="LONGVARCHAR" property="requestContent" />
+    <result column="response_content" jdbcType="LONGVARCHAR" property="responseContent" />
+    <result column="remote_ip" jdbcType="VARCHAR" property="remoteIp" />
+    <result column="notes" jdbcType="VARCHAR" property="notes" />
+    <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, consume_time, url, class_method, request_content, response_content, remote_ip, 
+    notes, dept_id, create_id, create_time, update_id, update_time
+  </sql>
+</mapper>

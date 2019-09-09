@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portjs.base.dao.TUserMapper">
+  <resultMap id="BaseResultMap" type="com.portjs.base.model.TUser">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pingyin" jdbcType="VARCHAR" property="pingyin" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="birth_date" jdbcType="TIMESTAMP" property="birthDate" />
+    <result column="duty" jdbcType="VARCHAR" property="duty" />
+    <result column="duty_lev" jdbcType="VARCHAR" property="dutyLev" />
+    <result column="phonenum" jdbcType="VARCHAR" property="phonenum" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="lock" jdbcType="INTEGER" property="lock" />
+    <result column="company_id" jdbcType="VARCHAR" property="companyId" />
+    <result column="unlock_time" jdbcType="TIMESTAMP" property="unlockTime" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="last_upd_passwd_time" jdbcType="TIMESTAMP" property="lastUpdPasswdTime" />
+    <result column="history_password" jdbcType="VARCHAR" property="historyPassword" />
+    <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, account, `password`, nickname, `name`, pingyin, sex, idcard, birth_date, duty, 
+    duty_lev, phonenum, telephone, email, address, sort, `lock`, company_id, unlock_time, 
+    last_login_time, last_upd_passwd_time, history_password, dept_id, create_id, create_time, 
+    update_id, update_time
+  </sql>
+
+  <resultMap extends="BaseResultMap" id="loginUserByAccount" type="com.portjs.base.model.TUser">
+    <collection ofType="com.portjs.base.model.TRole" property="roles">
+      <id column="rid" jdbcType="VARCHAR" property="id" />
+      <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+      <result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
+      <result column="rstatus" jdbcType="INTEGER" property="status" />
+      <result column="create_time" jdbcType="DATE" property="createTime" />
+      <result column="update_time" jdbcType="DATE" property="updateTime" />
+      <result column="sort" jdbcType="INTEGER" property="sort" />
+    </collection>
+  </resultMap>
+
+  <select id="loginUserByAccount" resultMap="loginUserByAccount">
+    SELECT u.*,r.*,u.`ID` AS uid, r.`id` AS rid ,u.`STATUS` AS ustatus, r.`status` AS rstatus
+    FROM t_user u
+    LEFT JOIN t_user_role ur ON ur.`user_id` = u.`ID`
+    INNER JOIN t_role r ON ur.`role_id` = r.`id`
+    INNER JOIN t_department d ON d.`ID` = u.`DEPARTMENT_ID`
+    AND u.`login_account` = #{account}
+  </select>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portjs.base.dao.TRoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.portjs.base.model.TRoleMenu">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="reserved1" jdbcType="LONGVARCHAR" property="reserved1" />
+    <result column="reserved2" jdbcType="LONGVARCHAR" property="reserved2" />
+    <result column="reserved3" jdbcType="LONGVARCHAR" property="reserved3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, role_id, menu_id, reserved1, reserved2, reserved3
+  </sql>
+</mapper>
