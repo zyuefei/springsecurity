@@ -74,6 +74,22 @@ public abstract class BaseController<T>{
 
 
 
+    public ResponseMessage success(Object data){
+        return new ResponseMessage(ResultCodeEnum.SUCCESS,data);
+    }
+    public ResponseMessage success(Integer index){
+        return new ResponseMessage(index);
+    }
+    public ResponseMessage success(){
+        return new ResponseMessage(ResultCodeEnum.SUCCESS,"");
+    }
+    public ResponseMessage failure(){
+        return new ResponseMessage(ResultCodeEnum.ERROR,"");
+    }
+    public ResponseMessage failure(String message){
+        return new ResponseMessage(ResultCodeEnum.ERROR.getCode(),message,"");
+    }
+
 
     /**
      * 根据属性名获取属性值
@@ -314,6 +330,10 @@ public abstract class BaseController<T>{
                 }
             }
         }
+
+        //加入公司id过滤
+        TUser tUser = getUserInfo();
+        queryWrapper.eq("harbor_id",tUser.getCompanyId());
 
         //加入select值
         String selectAttr = pageVo.getSelectAttr();

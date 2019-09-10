@@ -19,9 +19,9 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="lock" jdbcType="INTEGER" property="lock" />
+    <result column="enable" jdbcType="INTEGER" property="enable" />
+    <result column="wrang_count" jdbcType="INTEGER" property="wrongCount" />
     <result column="company_id" jdbcType="VARCHAR" property="companyId" />
-    <result column="unlock_time" jdbcType="TIMESTAMP" property="unlockTime" />
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="last_upd_passwd_time" jdbcType="TIMESTAMP" property="lastUpdPasswdTime" />
     <result column="history_password" jdbcType="VARCHAR" property="historyPassword" />
@@ -34,7 +34,7 @@
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, account, `password`, nickname, `name`, pingyin, sex, idcard, birth_date, duty, 
-    duty_lev, phonenum, telephone, email, address, sort, `lock`, company_id, unlock_time, 
+    duty_lev, phonenum, telephone, email, address, sort, `lock`, company_id,
     last_login_time, last_upd_passwd_time, history_password, dept_id, create_id, create_time, 
     update_id, update_time
   </sql>
@@ -52,11 +52,13 @@
   </resultMap>
 
   <select id="loginUserByAccount" resultMap="loginUserByAccount">
-    SELECT u.*,r.*,u.`ID` AS uid, r.`id` AS rid ,u.`STATUS` AS ustatus, r.`status` AS rstatus
+    SELECT u.*,r.*,u.`ID` AS uid, r.`id` AS rid , r.`status` AS rstatus
     FROM t_user u
     LEFT JOIN t_user_role ur ON ur.`user_id` = u.`ID`
     INNER JOIN t_role r ON ur.`role_id` = r.`id`
-    INNER JOIN t_department d ON d.`ID` = u.`DEPARTMENT_ID`
-    AND u.`login_account` = #{account}
+    AND u.`account` = #{account}
   </select>
+
+
+
 </mapper>

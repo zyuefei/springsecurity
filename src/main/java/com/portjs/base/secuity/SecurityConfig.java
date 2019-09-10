@@ -52,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().loginPage("/login_p")
                     .loginProcessingUrl("/login")
                     .successForwardUrl("/loginSuccessHandler")//登录成功之后转发处理
-                    .failureForwardUrl("/loginFailureHandler")//登录失败之后转发处理
+//                    .failureForwardUrl("/loginFailureHandler")//登录失败之后转发处理
+                    .failureHandler(new MyAuthFailureHandler())
                     .permitAll();
     }
 

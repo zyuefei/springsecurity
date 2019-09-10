@@ -134,12 +134,15 @@ public class TUser implements UserDetails {
     @ApiModelProperty(value = "排序")
     private Integer sort;
 
+    @TableField(value = "wrong_count")
+    @ApiModelProperty(value = "登录失败次数")
+    private Integer wrongCount;
     /**
      * 账号是否冻结状态
      */
-    @TableField(value = "lock")
+    @TableField(value = "enable")
     @ApiModelProperty(value = "账号是否冻结状态")
-    private Integer lock;
+    private Integer enable;
 
     /**
      * 所属公司
@@ -148,12 +151,6 @@ public class TUser implements UserDetails {
     @ApiModelProperty(value = "所属公司")
     private String companyId;
 
-    /**
-     * 下次解冻时间
-     */
-    @TableField(value = "unlock_time")
-    @ApiModelProperty(value = "下次解冻时间")
-    private Date unlockTime;
 
     /**
      * 最近一次的登录时间
@@ -256,7 +253,7 @@ public class TUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        if (lock == 1){
+        if (enable == 1){
             return true;
         }
         return false;

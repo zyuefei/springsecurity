@@ -2,8 +2,8 @@ package com.portjs.base.mpUtil;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
-import com.portjs.mpUtil.method.FSelectMapsPage;
-import com.portjs.mpUtil.method.FSelectPage;
+import com.portjs.base.mpUtil.method.FSelectMapsPage;
+import com.portjs.base.mpUtil.method.FSelectPage;
 
 import java.util.List;
 

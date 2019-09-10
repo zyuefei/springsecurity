@@ -8,10 +8,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.List;
+
 @ApiModel(value="com.portjs.base.model.TMenuResource")
 @Data
 @TableName(value = "t_menu_resource")
-public class TMenuResource {
+public class TMenuResource  implements Serializable {
     /**
      * 资源菜单表,每两位表示一个层级
      */
@@ -54,6 +57,10 @@ public class TMenuResource {
     @ApiModelProperty(value="图标")
     private String icon;
 
+    @TableField(value = "leaf")
+    @ApiModelProperty(value="叶子节点标志1是0否")
+    private String leaf;
+
     /**
      * 排序
      */
@@ -76,4 +83,7 @@ public class TMenuResource {
     @TableField(value = "reserved4")
     @ApiModelProperty(value="null")
     private String reserved4;
+
+    @TableField(exist = false)
+    private List<TMenuResource> children;
 }

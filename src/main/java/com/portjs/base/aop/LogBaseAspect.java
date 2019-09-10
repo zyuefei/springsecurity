@@ -74,8 +74,8 @@ public class LogBaseAspect {
 			}catch (Exception e){
 			}
 			log.setCreateTime(new Date());
-			LogInfo logInfo = ((MethodSignature) signature).getMethod().getAnnotation(LogInfo.class);
-			log.setNotes(logInfo.desc());
+//			LogInfo logInfo = ((MethodSignature) signature).getMethod().getAnnotation(LogInfo.class);
+//			log.setNotes(logInfo.desc());
 			//保存数据库
 			tTraceLogMapper.insert(log);
 

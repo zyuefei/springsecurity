@@ -58,3 +58,5 @@ isConcurrent: 0
 
 #错误次数配置  old
 wrongCounts: 3
+
+upload-path: E:/jintan-service/upload

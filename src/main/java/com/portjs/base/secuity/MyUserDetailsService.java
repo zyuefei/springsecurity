@@ -1,5 +1,6 @@
 package com.portjs.base.secuity;
 
+import com.alibaba.fastjson.JSONObject;
 import com.portjs.base.dao.TUserMapper;
 import com.portjs.base.model.TUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
 
         TUser user = userMapper.loginUserByAccount(s);
-
 
         return user;
     }

@@ -9,6 +9,7 @@
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="grade" jdbcType="VARCHAR" property="grade" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="leaf" jdbcType="INTEGER" property="leaf" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="reserved1" jdbcType="LONGVARCHAR" property="reserved1" />
     <result column="reserved2" jdbcType="LONGVARCHAR" property="reserved2" />
@@ -17,7 +18,19 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, parent_id, `name`, `path`, grade, icon, sort, reserved1, reserved2, reserved3, 
+    id, parent_id, `name`, `path`, grade, icon,leaf, sort, reserved1, reserved2, reserved3,
     reserved4
   </sql>
+  <select id="selectByRoles" resultMap="BaseResultMap">
+    SELECT
+	m.*
+FROM
+	t_menu_resource m
+	JOIN t_role_menu r ON r.menu_id = m.id
+WHERE r.role_id in
+<foreach collection="list" index="index" item="item" close=")" open="(" separator=",">
+  ${item}
+</foreach>
+  order by m.id
+  </select>
 </mapper>
