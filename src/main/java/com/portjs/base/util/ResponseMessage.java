@@ -16,11 +16,11 @@ public class ResponseMessage {
      */
     public ResponseMessage(int index){
         if (index>=0){
-            this.code =Integer.parseInt(ResultCodeEnum.SUCCESS.getCode());
-            this.message = ResultCodeEnum.SUCCESS.getMsg();
+            this.code =Integer.parseInt(CodeEnum.SUCCESS.getCode());
+            this.message = CodeEnum.SUCCESS.getMsg();
         }else {
-            this.code =Integer.parseInt(ResultCodeEnum.ERROR.getCode());
-            this.message = ResultCodeEnum.ERROR.getMsg();
+            this.code =Integer.parseInt(CodeEnum.ERROR.getCode());
+            this.message = CodeEnum.ERROR.getMsg();
         }
     }
 
@@ -42,9 +42,9 @@ public class ResponseMessage {
         this.message = message;
     }
     
-    public ResponseMessage(ResultCodeEnum resultCodeEnum, Object data) {
-        this.code =Integer.parseInt(resultCodeEnum.getCode());
-        this.message = resultCodeEnum.getMsg();
+    public ResponseMessage(CodeEnum codeEnum, Object data) {
+        this.code =Integer.parseInt(codeEnum.getCode());
+        this.message = codeEnum.getMsg();
         this.data = data;
     }
 

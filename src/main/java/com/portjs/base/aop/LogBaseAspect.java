@@ -41,7 +41,7 @@ public class LogBaseAspect {
 	TTraceLogMapper tTraceLogMapper;
 
 	// 切面
-	@Pointcut("execution(public * com.portjs..*.controller.*.*(..))") // 两个..代表所有子目录，最后括号里的两个..代表所有参数
+	@Pointcut("@annotation(com.portjs.base.aop.LogInfo)") // 两个..代表所有子目录，最后括号里的两个..代表所有参数
 	public void logPointCut() {
 	}
 
@@ -56,24 +56,22 @@ public class LogBaseAspect {
 			long startTime = System.currentTimeMillis();
 			TTraceLog log = new TTraceLog();
 			Signature signature = pjp.getSignature();
-			log.setUrl(request.getRequestURL().toString());
+			log.setRemoteIp(request.getRequestURL().toString());
 			log.setRemoteIp(request.getRemoteAddr());
-			log.setClassMethod(signature.getDeclaringTypeName()+"."+signature.getName());
-			log.setRequestContent(Arrays.toString(pjp.getArgs()));
+			log.setMethodName(signature.getDeclaringTypeName()+"."+signature.getName());
+			log.setRequestMessage(Arrays.toString(pjp.getArgs()));
 
 			Object obj = pjp.proceed();
 
 			//请求完成返回结果
-			log.setResponseContent(JSONObject.toJSONString(obj));
+			log.setResponseMessage(JSONObject.toJSONString(obj));
 			log.setConsumeTime((int) (System.currentTimeMillis() - startTime));
-			log.setCreateId("游客");
 			try {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 				TUser tUser = (TUser) authentication.getPrincipal();
-				log.setCreateId(tUser.getId());
 			}catch (Exception e){
 			}
-			log.setCreateTime(new Date());
+			log.setCreatetime(new Date());
 //			LogInfo logInfo = ((MethodSignature) signature).getMethod().getAnnotation(LogInfo.class);
 //			log.setNotes(logInfo.desc());
 			//保存数据库

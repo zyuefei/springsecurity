@@ -6,31 +6,55 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="grade" jdbcType="VARCHAR" property="grade" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
-    <result column="leaf" jdbcType="INTEGER" property="leaf" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="reserved1" jdbcType="LONGVARCHAR" property="reserved1" />
-    <result column="reserved2" jdbcType="LONGVARCHAR" property="reserved2" />
-    <result column="reserved3" jdbcType="LONGVARCHAR" property="reserved3" />
-    <result column="reserved4" jdbcType="LONGVARCHAR" property="reserved4" />
+    <result column="resource_menu" jdbcType="INTEGER" property="resourceMenu" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, parent_id, `name`, `path`, grade, icon,leaf, sort, reserved1, reserved2, reserved3,
-    reserved4
+    id, parent_id, `name`, sort, `path`, grade, icon, resource_menu
   </sql>
-  <select id="selectByRoles" resultMap="BaseResultMap">
-    SELECT
+  <select id="selectMenuByRoles" resultMap="BaseResultMap">
+ SELECT
 	m.*
 FROM
 	t_menu_resource m
 	JOIN t_role_menu r ON r.menu_id = m.id
-WHERE r.role_id in
-<foreach collection="list" index="index" item="item" close=")" open="(" separator=",">
-  ${item}
+WHERE m.resource_menu=0
+and r.id in
+<foreach collection="rids" open="(" separator="," close=")" item="item">
+    ${item}
 </foreach>
   order by m.id
+  </select>
+
+  <select id="selectResByRoles" resultMap="BaseResultMap">
+    SELECT
+    m.*
+    FROM
+    t_menu_resource m
+    JOIN t_role_menu r ON r.menu_id = m.id
+    WHERE m.resource_menu=1
+    AND r.id in
+    <foreach collection="rids" open="(" separator="," close=")" item="item">
+      ${item}
+    </foreach>
+    order by m.id
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select  * from t_menu_resource where SUBSTR(id,1,2) != '99'
+  </select>
+  <select id="selectAllByUserId" resultMap="BaseResultMap">
+select  mr.* from t_user_role ur
+JOIN t_role_menu rm on ur.role_id=rm.role_id
+JOIN t_menu_resource mr on mr.id=rm.menu_id
+WHERE ur.user_id=#{userId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectLastByParent" resultMap="BaseResultMap">
+    select * from t_menu_resource  where  parent_id=#{parentId,jdbcType=VARCHAR} order by id desc limit 0,1
   </select>
 </mapper>

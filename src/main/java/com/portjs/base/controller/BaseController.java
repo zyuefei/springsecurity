@@ -2,7 +2,6 @@ package com.portjs.base.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -17,7 +16,7 @@ import com.portjs.base.model.Page;
 import com.portjs.base.model.TUser;
 import com.portjs.base.mpUtil.FBaseMapper;
 import com.portjs.base.util.ResponseMessage;
-import com.portjs.base.util.ResultCodeEnum;
+import com.portjs.base.util.CodeEnum;
 import com.portjs.base.vo.MpCondition;
 import com.portjs.base.vo.PageVo;
 import io.swagger.annotations.ApiImplicitParam;
@@ -29,10 +28,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -42,7 +38,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 注意，如果使用fastjson 请升级到1.2.58版本级以上
+ * 注意，如果使用fastjson 请升级到1.2.60版本级以上
  * 基础contorller，可根据自己需求自定义，
  * 该版本默认带上createId，createTIme，updateId，updateTime信息
  * @Author:zhangyuefei
@@ -75,19 +71,19 @@ public abstract class BaseController<T>{
 
 
     public ResponseMessage success(Object data){
-        return new ResponseMessage(ResultCodeEnum.SUCCESS,data);
+        return new ResponseMessage(CodeEnum.SUCCESS,data);
     }
     public ResponseMessage success(Integer index){
         return new ResponseMessage(index);
     }
     public ResponseMessage success(){
-        return new ResponseMessage(ResultCodeEnum.SUCCESS,"");
+        return new ResponseMessage(CodeEnum.SUCCESS,"");
     }
     public ResponseMessage failure(){
-        return new ResponseMessage(ResultCodeEnum.ERROR,"");
+        return new ResponseMessage(CodeEnum.ERROR,"");
     }
     public ResponseMessage failure(String message){
-        return new ResponseMessage(ResultCodeEnum.ERROR.getCode(),message,"");
+        return new ResponseMessage(CodeEnum.ERROR.getCode(),message,"");
     }
 
 
@@ -164,9 +160,9 @@ public abstract class BaseController<T>{
         boolean flag = insert(entity);
 
         if (flag){
-            return new ResponseMessage(ResultCodeEnum.SUCCESS,entity);
+            return new ResponseMessage(CodeEnum.SUCCESS,entity);
         }else {
-            return new ResponseMessage(ResultCodeEnum.ERROR,"");
+            return new ResponseMessage(CodeEnum.ERROR,"");
         }
     }
 
@@ -178,9 +174,10 @@ public abstract class BaseController<T>{
     @ApiImplicitParam(name = "id", value = "主键id", required = true)
     @ApiOperation("详情")
     @GetMapping("/get/{id}")
+    @ResponseBody
     public ResponseMessage get(@PathVariable String id){
         T bean = getById(id);
-        return new ResponseMessage(ResultCodeEnum.SUCCESS,bean);
+        return new ResponseMessage(CodeEnum.SUCCESS,bean);
     }
 
     /**
@@ -191,13 +188,14 @@ public abstract class BaseController<T>{
     @ApiOperation("删除")
     @ApiImplicitParam(name = "ids", value = "主键ids", required = true)
     @PostMapping("/delete")
+    @ResponseBody
     public ResponseMessage delete(@RequestBody JSONArray ids){
        List<String> idList =  JSON.parseArray(ids.toJSONString(),String.class);
         boolean flag = SqlHelper.retBool(getMapper().deleteBatchIds(idList));
         if (flag){
-            return new ResponseMessage(ResultCodeEnum.SUCCESS,"");
+            return new ResponseMessage(CodeEnum.SUCCESS,"");
         }else {
-            return new ResponseMessage(ResultCodeEnum.ERROR,"");
+            return new ResponseMessage(CodeEnum.ERROR,"");
         }
     }
 
@@ -208,6 +206,7 @@ public abstract class BaseController<T>{
      */
     @ApiOperation("新增或修改")
     @PostMapping("/saveOrUpdate")
+    @ResponseBody
     public ResponseMessage saveOrUpdate(@RequestBody T entity){
 //        设置更新人id
         TUser tUser = getUserInfo();
@@ -224,9 +223,9 @@ public abstract class BaseController<T>{
             flag = com.baomidou.mybatisplus.core.toolkit.StringUtils.checkValNull(idVal) || Objects.isNull(getById((Serializable) idVal)) ? insert(entity) : updateById(entity);
         }
         if (flag){
-            return new ResponseMessage(ResultCodeEnum.SUCCESS,"");
+            return new ResponseMessage(CodeEnum.SUCCESS,"");
         }else {
-            return new ResponseMessage(ResultCodeEnum.ERROR,"");
+            return new ResponseMessage(CodeEnum.ERROR,"");
         }
     }
 
@@ -257,6 +256,7 @@ public abstract class BaseController<T>{
      */
     @ApiOperation("分页查询")
     @PostMapping("/query")
+    @ResponseBody
     public ResponseMessage query(@RequestBody PageVo pageVo){
         Page<T> page = pageVo.getPage();
         List<MpCondition> conditions =pageVo.getCondition();
@@ -345,14 +345,15 @@ public abstract class BaseController<T>{
             }
             sqlSelect = sqlSelect.substring(0,sqlSelect.lastIndexOf(","));
 //            upadteName and createName
-            sqlSelect = sqlSelect.replace("a.create_name","u.login_name AS createName");
-            sqlSelect = sqlSelect.replace("a.update_name","u.login_name AS updateName");
+            sqlSelect = sqlSelect.replace("a.create_name","u.name AS createName");
+            sqlSelect = sqlSelect.replace("a.update_name","u2.name AS updateName");
+            sqlSelect = sqlSelect.replace("a.dept_name","d.name AS deptName");
             queryWrapper.select(sqlSelect);
             IPage<Map<String, Object>> page1 = pageMap(page,queryWrapper);
-            return new ResponseMessage(ResultCodeEnum.SUCCESS,page1);
+            return new ResponseMessage(CodeEnum.SUCCESS,page1);
         }else {
             Page<T> page1 = (Page<T>)page(page,queryWrapper);
-            return new ResponseMessage(ResultCodeEnum.SUCCESS,page);
+            return new ResponseMessage(CodeEnum.SUCCESS,page);
         }
 
     }
@@ -381,12 +382,8 @@ public abstract class BaseController<T>{
         //判断是否具有createId 和deptId 属性并修改其值
         TUser user = getUserInfo();
         String deptId = getFieldValueByFieldName("deptId",entity);
-        String harborId = getFieldValueByFieldName("harborId",entity);
         if (StringUtils.isEmpty(deptId)) {
             setFieldValueByFieldName("deptId", entity, user.getDeptId());
-        }
-        if (StringUtils.isEmpty(harborId)) {
-            setFieldValueByFieldName("harborId", entity, user.getCompanyId());
         }
         setFieldValueByFieldName("createId",entity,user.getId());
         return retBool(getMapper().insert(entity));

@@ -19,13 +19,15 @@ public class FSelectPage extends AbstractMethod {
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
 //        SqlMethod sqlMethod = SqlMethod.SELECT_PAGE;
         String sqlScript = "<script>\n SELECT\n" +
-                "\tu.login_name AS createName,\n" +
-                "\tu2.login_name AS updateName,\n" +
+                "\tu.name AS createName,\n" +
+                "\tu2.name AS updateName,\n" +
+                "\td.name AS deptName,\n" +
                 "\t %s \n" +
                 "FROM\n" +
                 "\t %s a \n" +
-                "\tLEFT JOIN (SELECT ID,login_name FROM t_user) u ON a.create_id = u.ID\n" +
-                "\tLEFT JOIN (SELECT ID,login_name FROM t_user) u2 ON a.update_id = u2.ID %s %s\n</script>";
+                "\tLEFT JOIN (SELECT id,name FROM t_user) u ON a.create_id = u.id\n" +
+                "\tJOIN (SELECT id,name FROM t_department) d ON a.dept_id = d.id\n" +
+                "\tLEFT JOIN (SELECT id,name FROM t_user) u2 ON a.update_id = u2.id %s %s\n</script>";
         String method = "fSelectPage";
         String sql = String.format(sqlScript,sqlSelectColumns2(tableInfo,true),
                 tableInfo.getTableName(), sqlWhereEntityWrapper(true, tableInfo),

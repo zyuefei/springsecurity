@@ -1,6 +1,6 @@
 package com.portjs.base.exception;
 
-import com.portjs.base.util.ResultCodeEnum;
+import com.portjs.base.util.CodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -38,8 +38,8 @@ public class GlobalExceptionHandle {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorBean httpMessageNotReadableExceptionHandle(HttpMessageNotReadableException e) {
         log.error("参数解析异常", e);
-        return ErrorBeanFactory.getError(ResultCodeEnum.PARAM_PARSE_ERROR.getCode(),
-                ResultCodeEnum.PARAM_PARSE_ERROR.getMsg());
+        return ErrorBeanFactory.getError(CodeEnum.PARAM_PARSE_ERROR.getCode(),
+                CodeEnum.PARAM_PARSE_ERROR.getMsg());
     }
 
     /**
@@ -52,8 +52,8 @@ public class GlobalExceptionHandle {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorBean methodArgumentTypeMismatchExceptionHandle(MethodArgumentTypeMismatchException e) {
         log.error("参数类型不正确", e);
-        return ErrorBeanFactory.getError(ResultCodeEnum.PARAM_TYPE_ERROR.getCode(),
-                ResultCodeEnum.PARAM_TYPE_ERROR.getMsg() + ":" + e.getValue());
+        return ErrorBeanFactory.getError(CodeEnum.PARAM_TYPE_ERROR.getCode(),
+                CodeEnum.PARAM_TYPE_ERROR.getMsg() + ":" + e.getValue());
     }
 
     /**
@@ -75,8 +75,8 @@ public class GlobalExceptionHandle {
         sb.deleteCharAt(sb.length() - 1);
 
         log.error("参数校验失败：{}", sb.toString(), e);
-        return ErrorBeanFactory.getError(ResultCodeEnum.PARAM_VALID_ERROR.getCode(),
-                ResultCodeEnum.PARAM_VALID_ERROR.getMsg() + ":" + sb);
+        return ErrorBeanFactory.getError(CodeEnum.PARAM_VALID_ERROR.getCode(),
+                CodeEnum.PARAM_VALID_ERROR.getMsg() + ":" + sb);
     }
 
     /**
@@ -89,8 +89,8 @@ public class GlobalExceptionHandle {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorBean missingServletRequestParameterException(MissingServletRequestParameterException e) {
         log.error("参数校验失败", e);
-        return ErrorBeanFactory.getError(ResultCodeEnum.PARAM_VALID_ERROR.getCode(),
-                ResultCodeEnum.PARAM_VALID_ERROR.getMsg());
+        return ErrorBeanFactory.getError(CodeEnum.PARAM_VALID_ERROR.getCode(),
+                CodeEnum.PARAM_VALID_ERROR.getMsg());
     }
 
 //    /**
@@ -118,8 +118,8 @@ public class GlobalExceptionHandle {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorBean duplicateKeyExceptionHandle(DuplicateKeyException e) {
         log.error("资源已经存在", e);
-        return ErrorBeanFactory.getError(ResultCodeEnum.RESOURCES_ALREADY_EXIST_ERROR.getCode(),
-                ResultCodeEnum.RESOURCES_ALREADY_EXIST_ERROR.getMsg());
+        return ErrorBeanFactory.getError(CodeEnum.RESOURCES_ALREADY_EXIST_ERROR.getCode(),
+                CodeEnum.RESOURCES_ALREADY_EXIST_ERROR.getMsg());
     }
 
     /**
@@ -139,19 +139,19 @@ public class GlobalExceptionHandle {
 
             // 有外键关联，不能删除异常
             log.error("有关联数据，无法删除", e);
-            return ErrorBeanFactory.getError(ResultCodeEnum.RESOURCES_FOREIGN_KEY_CONSTRAINT_ERROR.getCode(),
-                    ResultCodeEnum.RESOURCES_FOREIGN_KEY_CONSTRAINT_ERROR.getMsg());
+            return ErrorBeanFactory.getError(CodeEnum.RESOURCES_FOREIGN_KEY_CONSTRAINT_ERROR.getCode(),
+                    CodeEnum.RESOURCES_FOREIGN_KEY_CONSTRAINT_ERROR.getMsg());
         } else if (message.contains("Data too long for column")) {
 
             // 字段长度超过最大长度异常
             log.error("字段长度超过最大长度限制", e);
-            return ErrorBeanFactory.getError(ResultCodeEnum.DATA_TOO_LONG_EXCEPTION.getCode(),
-                    ResultCodeEnum.DATA_TOO_LONG_EXCEPTION.getMsg());
+            return ErrorBeanFactory.getError(CodeEnum.DATA_TOO_LONG_EXCEPTION.getCode(),
+                    CodeEnum.DATA_TOO_LONG_EXCEPTION.getMsg());
         }
 
         log.error("数据完整性异常", e);
-        return ErrorBeanFactory.getError(ResultCodeEnum.DATA_INTEGRITY_VIOLATION_ERROR.getCode(),
-                ResultCodeEnum.DATA_INTEGRITY_VIOLATION_ERROR.getMsg() + e.getCause().getMessage());
+        return ErrorBeanFactory.getError(CodeEnum.DATA_INTEGRITY_VIOLATION_ERROR.getCode(),
+                CodeEnum.DATA_INTEGRITY_VIOLATION_ERROR.getMsg() + e.getCause().getMessage());
     }
 
 //    /**
@@ -187,14 +187,14 @@ public class GlobalExceptionHandle {
         // 查询到多个结果异常
         if (e.getCause().getMessage().contains("Expected one result (or null) to be returned by selectOne()")) {
             log.error("查询到多个结果", e);
-            return ErrorBeanFactory.getError(ResultCodeEnum.TOO_MANY_RESULT_ERROR.getCode(),
-                    ResultCodeEnum.TOO_MANY_RESULT_ERROR.getMsg());
+            return ErrorBeanFactory.getError(CodeEnum.TOO_MANY_RESULT_ERROR.getCode(),
+                    CodeEnum.TOO_MANY_RESULT_ERROR.getMsg());
 
         }
 
         log.error("未知异常", e);
-        return ErrorBeanFactory.getError(ResultCodeEnum.UNKNOWN_ERROR.getCode(),
-                ResultCodeEnum.UNKNOWN_ERROR.getMsg());
+        return ErrorBeanFactory.getError(CodeEnum.UNKNOWN_ERROR.getCode(),
+                CodeEnum.UNKNOWN_ERROR.getMsg());
     }
 
 }

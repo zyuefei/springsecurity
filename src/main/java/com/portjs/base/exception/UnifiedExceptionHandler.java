@@ -1,7 +1,7 @@
 package com.portjs.base.exception;
 
 import com.portjs.base.util.ResponseMessage;
-import com.portjs.base.util.ResultCodeEnum;
+import com.portjs.base.util.CodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,7 +21,7 @@ public class UnifiedExceptionHandler {
 //    @ResponseStatus(HttpStatus.HTTP_VERSION_NOT_SUPPORTED)
     public ResponseMessage unifiedExceptionHandler(Exception e){
 //        logger.error(tag + "updatePeopleGd() end===>" + e);
-        ResponseMessage responseMessage = new ResponseMessage(ResultCodeEnum.SERVERERROR,"");
+        ResponseMessage responseMessage = new ResponseMessage(CodeEnum.SERVERERROR,"");
         logger.error(method+e);  //这里必须是logger.error(str1,str2),需要在
         e.printStackTrace();
         return responseMessage;

@@ -15,9 +15,9 @@ spring:
   cache:
     type: simple
   datasource:
-    url: jdbc:mysql://192.168.11.248:3306/demo?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+    url: jdbc:mysql://127.0.0.1:3306/gkbase?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
     username: root
-    password: 123456
+    password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:

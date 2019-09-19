@@ -1,6 +1,6 @@
 package com.portjs.base.util;
 
-public enum ResultCodeEnum {
+public enum CodeEnum {
     SUCCESS("200", "成功"),
     ERROR("500", "失败"),
     SERVERERROR("5000", "服务器异常"),
@@ -66,7 +66,7 @@ public enum ResultCodeEnum {
     private String code;
     private String msg;
 
-    ResultCodeEnum(String code, String msg) {
+    CodeEnum(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }

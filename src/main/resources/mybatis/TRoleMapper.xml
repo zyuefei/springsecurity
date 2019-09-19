@@ -13,19 +13,10 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_id" jdbcType="VARCHAR" property="updateId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="reserved1" jdbcType="LONGVARCHAR" property="reserved1" />
-    <result column="reserved2" jdbcType="LONGVARCHAR" property="reserved2" />
-    <result column="reserved3" jdbcType="LONGVARCHAR" property="reserved3" />
-    <result column="reserved4" jdbcType="LONGVARCHAR" property="reserved4" />
-    <result column="reserved5" jdbcType="LONGVARCHAR" property="reserved5" />
-    <result column="reserved6" jdbcType="LONGVARCHAR" property="reserved6" />
-    <result column="reserved7" jdbcType="LONGVARCHAR" property="reserved7" />
-    <result column="reserved8" jdbcType="LONGVARCHAR" property="reserved8" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     id, role_name, role_desc, `status`, sort, dept_id, create_id, create_time, update_id, 
-    update_time, reserved1, reserved2, reserved3, reserved4, reserved5, reserved6, reserved7, 
-    reserved8
+    update_time
   </sql>
 </mapper>

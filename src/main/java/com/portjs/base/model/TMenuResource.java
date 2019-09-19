@@ -8,81 +8,75 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
+import java.beans.Transient;
 import java.util.List;
 
-@ApiModel(value="com.portjs.base.model.TMenuResource")
+/**
+ * @author zhangyuefei
+ * @version 1.0
+ * @date 2019/9/11 10:24 上午
+ */
+@ApiModel(value = "com.portjs.base.model.TMenuResource")
 @Data
 @TableName(value = "t_menu_resource")
-public class TMenuResource  implements Serializable {
+public class TMenuResource {
     /**
-     * 资源菜单表,每两位表示一个层级
+     * 资源菜单表
      */
     @TableId(value = "id", type = IdType.UUID)
-    @ApiModelProperty(value="资源菜单表,每两位表示一个层级")
+    @ApiModelProperty(value = "资源菜单表")
     private String id;
 
     /**
-     * 父权限
+     * 父节点id
      */
     @TableField(value = "parent_id")
-    @ApiModelProperty(value="父权限")
+    @ApiModelProperty(value = "父节点id")
     private String parentId;
 
     /**
      * 菜单或资源的名字
      */
     @TableField(value = "name")
-    @ApiModelProperty(value="菜单或资源的名字")
+    @ApiModelProperty(value = "菜单或资源的名字")
     private String name;
+
+    /**
+     * 排序
+     */
+    @TableField(value = "sort")
+    @ApiModelProperty(value = "排序")
+    private Integer sort;
 
     /**
      * 地址
      */
     @TableField(value = "path")
-    @ApiModelProperty(value="地址")
+    @ApiModelProperty(value = "地址")
     private String path;
 
     /**
      * 菜单等级
      */
     @TableField(value = "grade")
-    @ApiModelProperty(value="菜单等级")
+    @ApiModelProperty(value = "菜单等级")
     private String grade;
 
     /**
      * 图标
      */
     @TableField(value = "icon")
-    @ApiModelProperty(value="图标")
+    @ApiModelProperty(value = "图标")
     private String icon;
 
-    @TableField(value = "leaf")
-    @ApiModelProperty(value="叶子节点标志1是0否")
-    private String leaf;
-
     /**
-     * 排序
+     * 0是菜单  1是资源
      */
-    @TableField(value = "sort")
-    @ApiModelProperty(value="排序")
-    private Integer sort;
+    @TableField(value = "resource_menu")
+    @ApiModelProperty(value = "0是菜单  1是资源")
+    private Integer resourceMenu;
 
-    @TableField(value = "reserved1")
-    @ApiModelProperty(value="null")
-    private String reserved1;
 
-    @TableField(value = "reserved2")
-    @ApiModelProperty(value="null")
-    private String reserved2;
-
-    @TableField(value = "reserved3")
-    @ApiModelProperty(value="null")
-    private String reserved3;
-
-    @TableField(value = "reserved4")
-    @ApiModelProperty(value="null")
-    private String reserved4;
 
     @TableField(exist = false)
     private List<TMenuResource> children;

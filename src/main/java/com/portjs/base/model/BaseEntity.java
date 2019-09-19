@@ -18,11 +18,11 @@ public class BaseEntity {
     private String updateName;
 
     /**
-     * 港口id
+     * 部门id
      */
-    @TableField(value = "harbor_id")
-    @ApiModelProperty(value = "港口id")
-    private String harborId;
+    @TableField(value = "dept_id")
+    @ApiModelProperty(value = "部门id")
+    private String deptId;
 
     /**
      * 创建人

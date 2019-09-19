@@ -2,7 +2,7 @@ package com.portjs.base.controller;
 
 import com.portjs.base.service.UploadService;
 import com.portjs.base.util.ResponseMessage;
-import com.portjs.base.util.ResultCodeEnum;
+import com.portjs.base.util.CodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +34,10 @@ public class FileuploadController {
     public ResponseMessage insertDesign(@RequestBody MultipartFile file){
         logger.debug(TAG+file);
        String url = upload.uploadFlie(file).replace("#","%23");
-//        replace("+", "%20").replace("(", "%28").
-//               replace(")", "%29").replace(";", "%3B")
-//               .replace("@", "%40").
-//               replace("&", "%26").
-//                       replace(",", "%2C").replace("$", "%24").
-//                       replace("^", "%5E").
-//                       replace("=", "%3D");
-
         if("1".equals(url)){
-         return  new ResponseMessage(ResultCodeEnum.ERROR.getCode(),"上传失败","");
+         return  new ResponseMessage(CodeEnum.ERROR.getCode(),"上传失败","");
         }
-        return new ResponseMessage(ResultCodeEnum.SUCCESS.getCode() , "上传成功",url);
+        return new ResponseMessage(CodeEnum.SUCCESS.getCode() , "上传成功",url);
     }
     //上传公共连接
     @RequestMapping(value = "/uploadCailiao", method = RequestMethod.POST)
@@ -59,18 +51,18 @@ public class FileuploadController {
                 file_path.append(upload.uploadFlie(file));
                 logger.debug(TAG + "uploadCailiao()file_path#################### "+file_path);
                 if (file_path.toString().equals("1")) {
-                    return new ResponseMessage(ResultCodeEnum.ERROR, "上传失败");
+                    return new ResponseMessage(CodeEnum.ERROR, "上传失败");
                 }
                 file_path = file_path.append("^");
                 logger.debug(TAG + "uploadCailiao()file_path2#################### "+file_path);
             }
             if (!StringUtils.isEmpty(file_path)) {
-                return new ResponseMessage(ResultCodeEnum.SUCCESS, file_path);
+                return new ResponseMessage(CodeEnum.SUCCESS, file_path);
             }
-            return new ResponseMessage(ResultCodeEnum.ERROR, "上传失败");
+            return new ResponseMessage(CodeEnum.ERROR, "上传失败");
         } catch (Exception e) {
             logger.debug(TAG + "uploadCailiao()error#################### ", e);
-            return new ResponseMessage(ResultCodeEnum.ERROR, "上传失败");
+            return new ResponseMessage(CodeEnum.ERROR, "上传失败");
         }
     }
 

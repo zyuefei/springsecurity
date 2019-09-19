@@ -4,10 +4,8 @@ import com.portjs.base.dao.SpringSessionMapper;
 import com.portjs.base.dao.TUserMapper;
 import com.portjs.base.model.TUser;
 import com.portjs.base.util.ResponseMessage;
-import com.portjs.base.util.ResultCodeEnum;
-import lombok.Data;
+import com.portjs.base.util.CodeEnum;
 import lombok.extern.slf4j.Slf4j;
-import net.sourceforge.pinyin4j.PinyinHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -71,7 +69,7 @@ public class HomeController {
         //用户登录成功信息
         TUser user = (TUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        ResponseMessage responseMessage = new ResponseMessage(ResultCodeEnum.SUCCESS.getCode(),"登录成功", user);
+        ResponseMessage responseMessage = new ResponseMessage(CodeEnum.SUCCESS.getCode(),"登录成功", user);
         //判断是否需要顶掉他人登录
         if (isConcurrent.equals("1")) {
             springSessionMapper.deleteByPrincipalName(username);

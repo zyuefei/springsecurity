@@ -9,51 +9,68 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Data;
 
+/**
+ * @author zhangyuefei
+ * @version 1.0
+ * @date 2019/9/18 2:35 下午
+ */
 @ApiModel(value = "com.portjs.base.model.TTraceLog")
 @Data
 @TableName(value = "t_trace_log")
 public class TTraceLog {
-    /**
-     * 主键
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(value = "主键")
+    @TableId(value = "ID", type = IdType.AUTO)
+    @ApiModelProperty(value = "null")
     private Integer id;
+
+    /**
+     * 调用时间
+     */
+    @TableField(value = "CREATETIME")
+    @ApiModelProperty(value = "调用时间")
+    private Date createtime;
 
     /**
      * 系统响应耗时
      */
-    @TableField(value = "consume_time")
+    @TableField(value = "consume_TIME")
     @ApiModelProperty(value = "系统响应耗时")
     private Integer consumeTime;
 
     /**
-     * 请求url
+     * 功能模块名称
      */
-    @TableField(value = "url")
-    @ApiModelProperty(value = "请求url")
-    private String url;
+    @TableField(value = "model_name")
+    @ApiModelProperty(value = "功能模块名称")
+    private String modelName;
 
     /**
-     * 类、方法位置
+     * 调用方法
      */
-    @TableField(value = "class_method")
-    @ApiModelProperty(value = "类、方法位置")
-    private String classMethod;
+    @TableField(value = "METHOD_INFO")
+    @ApiModelProperty(value = "调用方法")
+    private String methodInfo;
 
     /**
-     * 请求内容
+     * 方法名称
      */
-    @TableField(value = "request_content")
-    @ApiModelProperty(value = "请求内容")
-    private String requestContent;
+    @TableField(value = "METHOD_NAME")
+    @ApiModelProperty(value = "方法名称")
+    private String methodName;
+
+    @TableField(value = "REQUEST_MESSAGE")
+    @ApiModelProperty(value = "null")
+    private String requestMessage;
+
+    @TableField(value = "RESPONSE_MESSAGE")
+    @ApiModelProperty(value = "null")
+    private String responseMessage;
 
     /**
-     * 返回内容
+     * 操作账号
      */
-    @TableField(value = "response_content")
-    @ApiModelProperty(value = "返回内容")
-    private String responseContent;
+    @TableField(value = "OPERATOR_NAME")
+    @ApiModelProperty(value = "操作账号")
+    private String operatorName;
 
     /**
      * 客户端地址
@@ -63,44 +80,44 @@ public class TTraceLog {
     private String remoteIp;
 
     /**
-     * 备注
+     * 客户端用户名称
      */
-    @TableField(value = "notes")
-    @ApiModelProperty(value = "备注")
-    private String notes;
+    @TableField(value = "remote_user")
+    @ApiModelProperty(value = "客户端用户名称")
+    private String remoteUser;
 
     /**
-     * 部门
+     * 保留字段1
      */
-    @TableField(value = "dept_id")
-    @ApiModelProperty(value = "部门")
-    private String deptId;
+    @TableField(value = "reserved1")
+    @ApiModelProperty(value = "保留字段1")
+    private String reserved1;
 
     /**
-     * 创建人
+     * 保留字段2
      */
-    @TableField(value = "create_id")
-    @ApiModelProperty(value = "创建人")
-    private String createId;
+    @TableField(value = "reserved2")
+    @ApiModelProperty(value = "保留字段2")
+    private String reserved2;
 
     /**
-     * 创建时间
+     * 保留字段3
      */
-    @TableField(value = "create_time")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+    @TableField(value = "reserved3")
+    @ApiModelProperty(value = "保留字段3")
+    private String reserved3;
 
     /**
-     * 更新者id
+     * 保留字段4
      */
-    @TableField(value = "update_id")
-    @ApiModelProperty(value = "更新者id")
-    private String updateId;
+    @TableField(value = "reserved4")
+    @ApiModelProperty(value = "保留字段4")
+    private String reserved4;
 
     /**
-     * 更新时间
+     * 保留字段5
      */
-    @TableField(value = "update_time")
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
+    @TableField(value = "reserved5")
+    @ApiModelProperty(value = "保留字段5")
+    private String reserved5;
 }

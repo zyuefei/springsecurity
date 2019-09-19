@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portjs.base.dao.TUserMapper;
 import com.portjs.base.model.TUser;
 import com.portjs.base.util.ResponseMessage;
-import com.portjs.base.util.ResultCodeEnum;
+import com.portjs.base.util.CodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.*;
@@ -45,17 +45,17 @@ public class MyAuthFailureHandler implements AuthenticationFailureHandler {
             }
             user.setWrongCount(wrongCount);
             userMapper.updateById(user);
-            responseMessage = new ResponseMessage(ResultCodeEnum.ERROR.getCode(), "密码输入错误!您还剩" + (wrongCounts - wrongCount) + "次登录机会","");
+            responseMessage = new ResponseMessage(CodeEnum.ERROR.getCode(), "密码输入错误!您还剩" + (wrongCounts - wrongCount) + "次登录机会","");
         } else if (e instanceof LockedException) {
-            responseMessage = new ResponseMessage(ResultCodeEnum.ERROR.getCode(), "账户被锁定，请联系管理员!","");
+            responseMessage = new ResponseMessage(CodeEnum.ERROR.getCode(), "账户被锁定，请联系管理员!","");
         } else if (e instanceof CredentialsExpiredException) {
-            responseMessage = new ResponseMessage(ResultCodeEnum.ERROR.getCode(), "密码过期，请联系管理员!","");
+            responseMessage = new ResponseMessage(CodeEnum.ERROR.getCode(), "密码过期，请联系管理员!","");
         } else if (e instanceof AccountExpiredException) {
-            responseMessage = new ResponseMessage(ResultCodeEnum.ERROR.getCode(), "账号过期，请联系管理员!","");
+            responseMessage = new ResponseMessage(CodeEnum.ERROR.getCode(), "账号过期，请联系管理员!","");
         } else if (e instanceof DisabledException) {
-            responseMessage = new ResponseMessage(ResultCodeEnum.ERROR.getCode(), "账户被锁定，请联系管理员!","");
+            responseMessage = new ResponseMessage(CodeEnum.ERROR.getCode(), "账户被锁定，请联系管理员!","");
         } else {
-            responseMessage = new ResponseMessage(ResultCodeEnum.ERROR.getCode(), "该用户不存在!","");
+            responseMessage = new ResponseMessage(CodeEnum.ERROR.getCode(), "该用户不存在!","");
         }
         resp.setStatus(401);
         ObjectMapper om = new ObjectMapper();
