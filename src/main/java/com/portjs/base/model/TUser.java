@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.portjs.base.aop.LogInfo;
+import com.portjs.base.aop.LogShowParam;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -21,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @ApiModel(value = "com.portjs.base.model.TUser")
 @Data
 @TableName(value = "t_user")
-public class TUser implements UserDetails {
+public class TUser extends BaseEntity implements UserDetails {
     /**
      * 主键
      */
@@ -32,6 +34,7 @@ public class TUser implements UserDetails {
     /**
      * 登录账号
      */
+    @LogShowParam("登录账号")
     @TableField(value = "account")
     @ApiModelProperty(value = "登录账号")
     private String account;
@@ -46,11 +49,13 @@ public class TUser implements UserDetails {
     /**
      * 用户名
      */
+
     @TableField(value = "nickname")
     @ApiModelProperty(value = "用户名")
     private String nickname;
 
     /**
+     *
      * 用户真实姓名
      */
     @TableField(value = "name")

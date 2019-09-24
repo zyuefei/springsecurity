@@ -15,5 +15,7 @@ public interface TUserRoleMapper extends BaseMapper<TUserRole> {
 
     int insertList(@Param("userId")String userId,@Param("list")List<TRole> list);
 
+    int deleteByUserId(@Param("userId")String userId);
 
+    int deleteByUserIds(@Param("userIds")List<String> userIds);
 }

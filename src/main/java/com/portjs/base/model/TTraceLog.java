@@ -12,65 +12,81 @@ import lombok.Data;
 /**
  * @author zhangyuefei
  * @version 1.0
- * @date 2019/9/18 2:35 下午
+ * @date 2019/9/21 10:16 上午
  */
 @ApiModel(value = "com.portjs.base.model.TTraceLog")
 @Data
 @TableName(value = "t_trace_log")
 public class TTraceLog {
-    @TableId(value = "ID", type = IdType.AUTO)
-    @ApiModelProperty(value = "null")
+    /**
+     * 主键
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty(value = "主键")
     private Integer id;
 
     /**
-     * 调用时间
+     * 模块名称
      */
-    @TableField(value = "CREATETIME")
-    @ApiModelProperty(value = "调用时间")
-    private Date createtime;
+    @TableField(value = "model")
+    @ApiModelProperty(value = "模块名称")
+    private String model;
+
+    /**
+     * 动作名称
+     */
+    @TableField(value = "action")
+    @ApiModelProperty(value = "动作名称")
+    private String action;
+
+    /**
+     * 参数
+     */
+    @TableField(value = "param")
+    @ApiModelProperty(value = "参数")
+    private String param;
+
+    /**
+     * 返回结果
+     */
+    @TableField(value = "result")
+    @ApiModelProperty(value = "返回结果")
+    private String result;
 
     /**
      * 系统响应耗时
      */
-    @TableField(value = "consume_TIME")
+    @TableField(value = "consume_time")
     @ApiModelProperty(value = "系统响应耗时")
     private Integer consumeTime;
 
     /**
-     * 功能模块名称
+     * 请求url
      */
-    @TableField(value = "model_name")
-    @ApiModelProperty(value = "功能模块名称")
-    private String modelName;
+    @TableField(value = "url")
+    @ApiModelProperty(value = "请求url")
+    private String url;
 
     /**
-     * 调用方法
+     * 类、方法位置
      */
-    @TableField(value = "METHOD_INFO")
-    @ApiModelProperty(value = "调用方法")
-    private String methodInfo;
+    @TableField(value = "class_method")
+    @ApiModelProperty(value = "类、方法位置")
+    private String classMethod;
 
     /**
-     * 方法名称
+     * 请求内容
      */
-    @TableField(value = "METHOD_NAME")
-    @ApiModelProperty(value = "方法名称")
-    private String methodName;
-
-    @TableField(value = "REQUEST_MESSAGE")
-    @ApiModelProperty(value = "null")
-    private String requestMessage;
-
-    @TableField(value = "RESPONSE_MESSAGE")
-    @ApiModelProperty(value = "null")
-    private String responseMessage;
+    @TableField(value = "req_content")
+    @ApiModelProperty(value = "请求内容")
+    private String reqContent;
 
     /**
-     * 操作账号
+     * 返回内容
      */
-    @TableField(value = "OPERATOR_NAME")
-    @ApiModelProperty(value = "操作账号")
-    private String operatorName;
+    @TableField(value = "res_content")
+    @ApiModelProperty(value = "返回内容")
+    private String resContent;
 
     /**
      * 客户端地址
@@ -80,44 +96,41 @@ public class TTraceLog {
     private String remoteIp;
 
     /**
-     * 客户端用户名称
+     * 备注
      */
-    @TableField(value = "remote_user")
-    @ApiModelProperty(value = "客户端用户名称")
-    private String remoteUser;
+    @TableField(value = "notes")
+    @ApiModelProperty(value = "备注")
+    private String notes;
 
     /**
-     * 保留字段1
+     * 公司id
      */
-    @TableField(value = "reserved1")
-    @ApiModelProperty(value = "保留字段1")
-    private String reserved1;
+    @TableField(value = "company_id")
+    @ApiModelProperty(value = "公司id")
+    private String companyId;
 
     /**
-     * 保留字段2
+     * 部门
      */
-    @TableField(value = "reserved2")
-    @ApiModelProperty(value = "保留字段2")
-    private String reserved2;
+    @TableField(value = "dept_id")
+    @ApiModelProperty(value = "部门")
+    private String deptId;
 
     /**
-     * 保留字段3
+     * 创建人
      */
-    @TableField(value = "reserved3")
-    @ApiModelProperty(value = "保留字段3")
-    private String reserved3;
+    @TableField(value = "create_id")
+    @ApiModelProperty(value = "创建人")
+    private String createId;
 
     /**
-     * 保留字段4
+     * 创建时间
      */
-    @TableField(value = "reserved4")
-    @ApiModelProperty(value = "保留字段4")
-    private String reserved4;
+    @TableField(value = "create_time")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
-    /**
-     * 保留字段5
-     */
-    @TableField(value = "reserved5")
-    @ApiModelProperty(value = "保留字段5")
-    private String reserved5;
+
+
+
 }

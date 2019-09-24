@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
@@ -17,7 +19,7 @@ import lombok.Data;
 @ApiModel(value = "com.portjs.base.model.TRole")
 @Data
 @TableName(value = "t_role")
-public class TRole extends BaseEntity {
+public class TRole extends BaseEntity implements Serializable {
     /**
      * 主键
      */

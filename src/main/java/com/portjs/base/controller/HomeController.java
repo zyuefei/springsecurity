@@ -72,7 +72,7 @@ public class HomeController {
         ResponseMessage responseMessage = new ResponseMessage(CodeEnum.SUCCESS.getCode(),"登录成功", user);
         //判断是否需要顶掉他人登录
         if (isConcurrent.equals("1")) {
-            springSessionMapper.deleteByPrincipalName(username);
+            springSessionMapper.deleteById(username);
         }
         //登录成功清
         user.setWrongCount(0);

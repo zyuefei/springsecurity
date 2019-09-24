@@ -3,27 +3,26 @@
 <mapper namespace="com.portjs.base.dao.TTraceLogMapper">
   <resultMap id="BaseResultMap" type="com.portjs.base.model.TTraceLog">
     <!--@mbg.generated-->
-    <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
-    <result column="consume_TIME" jdbcType="INTEGER" property="consumeTime" />
-    <result column="model_name" jdbcType="LONGVARCHAR" property="modelName" />
-    <result column="METHOD_INFO" jdbcType="LONGVARCHAR" property="methodInfo" />
-    <result column="METHOD_NAME" jdbcType="LONGVARCHAR" property="methodName" />
-    <result column="REQUEST_MESSAGE" jdbcType="LONGVARCHAR" property="requestMessage" />
-    <result column="RESPONSE_MESSAGE" jdbcType="LONGVARCHAR" property="responseMessage" />
-    <result column="OPERATOR_NAME" jdbcType="VARCHAR" property="operatorName" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="action" jdbcType="VARCHAR" property="action" />
+    <result column="param" jdbcType="VARCHAR" property="param" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="consume_time" jdbcType="INTEGER" property="consumeTime" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="class_method" jdbcType="LONGVARCHAR" property="classMethod" />
+    <result column="req_content" jdbcType="LONGVARCHAR" property="reqContent" />
+    <result column="res_content" jdbcType="LONGVARCHAR" property="resContent" />
     <result column="remote_ip" jdbcType="VARCHAR" property="remoteIp" />
-    <result column="remote_user" jdbcType="VARCHAR" property="remoteUser" />
-    <result column="reserved1" jdbcType="VARCHAR" property="reserved1" />
-    <result column="reserved2" jdbcType="VARCHAR" property="reserved2" />
-    <result column="reserved3" jdbcType="VARCHAR" property="reserved3" />
-    <result column="reserved4" jdbcType="VARCHAR" property="reserved4" />
-    <result column="reserved5" jdbcType="VARCHAR" property="reserved5" />
+    <result column="notes" jdbcType="VARCHAR" property="notes" />
+    <result column="company_id" jdbcType="VARCHAR" property="companyId" />
+    <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    ID, CREATETIME, consume_TIME, model_name, METHOD_INFO, METHOD_NAME, REQUEST_MESSAGE, 
-    RESPONSE_MESSAGE, OPERATOR_NAME, remote_ip, remote_user, reserved1, reserved2, reserved3, 
-    reserved4, reserved5
+    id, model, `action`, param, `result`, consume_time, url, class_method, req_content, 
+    res_content, remote_ip, notes, company_id, dept_id, create_id, create_time
   </sql>
 </mapper>

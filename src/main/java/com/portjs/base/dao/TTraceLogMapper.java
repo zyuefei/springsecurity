@@ -6,7 +6,7 @@ import com.portjs.base.model.TTraceLog;
 /**
  * @author zhangyuefei
  * @version 1.0
- * @date 2019/9/18 2:35 下午
+ * @date 2019/9/21 10:16 上午
  */
 public interface TTraceLogMapper extends BaseMapper<TTraceLog> {
 }

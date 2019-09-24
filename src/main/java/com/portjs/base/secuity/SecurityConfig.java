@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/css/**", "/index").permitAll()
-                    .antMatchers("/user/**").hasRole("USER")
+                    .antMatchers("/user/**").permitAll()
                     .anyRequest().access("@rbacService.hasPermission(request,authentication)")//所有url权限过滤
 
                 .and()

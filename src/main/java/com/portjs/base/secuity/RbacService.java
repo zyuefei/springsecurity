@@ -40,7 +40,7 @@ public class RbacService {
                 }
             }
         }
-//        return hasPermission;
-        return true;
+        return hasPermission;
+//        return true;
     }
 }

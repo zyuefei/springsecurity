@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.portjs.base.dao.SpringSessionMapper">
+  <resultMap id="BaseResultMap" type="com.portjs.base.model.SpringSession">
+    <!--@mbg.generated-->
+    <id column="PRIMARY_ID" jdbcType="CHAR" property="primaryId" />
+    <result column="SESSION_ID" jdbcType="CHAR" property="sessionId" />
+    <result column="CREATION_TIME" jdbcType="BIGINT" property="creationTime" />
+    <result column="LAST_ACCESS_TIME" jdbcType="BIGINT" property="lastAccessTime" />
+    <result column="MAX_INACTIVE_INTERVAL" jdbcType="INTEGER" property="maxInactiveInterval" />
+    <result column="EXPIRY_TIME" jdbcType="BIGINT" property="expiryTime" />
+    <result column="PRINCIPAL_NAME" jdbcType="VARCHAR" property="principalName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    PRIMARY_ID, SESSION_ID, CREATION_TIME, LAST_ACCESS_TIME, MAX_INACTIVE_INTERVAL, EXPIRY_TIME, 
+    PRINCIPAL_NAME
+  </sql>
+</mapper>

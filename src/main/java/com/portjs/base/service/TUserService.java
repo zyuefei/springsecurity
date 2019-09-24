@@ -1,5 +1,6 @@
 package com.portjs.base.service;
 
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.portjs.base.dao.TUserMapper;
 import com.portjs.base.dao.TUserRoleMapper;
 import com.portjs.base.model.TRole;
@@ -32,6 +33,21 @@ public class TUserService {
         int index = userMapper.insert(user);
         List<TRole> roles = user.getRoles();
         index = userRoleMapper.insertList(user.getId(),roles);
+        return index;
+    }
+
+    @Transactional
+    public int update(TUser user) {
+        int index = userMapper.updateById(user);
+        userRoleMapper.deleteByUserId(user.getId());
+        List<TRole> roles = user.getRoles();
+        index = userRoleMapper.insertList(user.getId(),roles);
+        return index;
+    }
+
+    public int deletes(List<String> idList) {
+        int index = userMapper.deleteBatchIds(idList);
+        index = userRoleMapper.deleteByUserIds(idList);
         return index;
     }
 }
